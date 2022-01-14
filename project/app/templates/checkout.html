@@ -32,7 +32,7 @@
           <nav class="navbar navbar-expand-lg custom_nav-container ">
             <a class="navbar-brand" href="index.html">
               <span>
-                <img src="{% static 'images/logo.png' %}" alt="" style="width: 80px; height: 40px;">
+                <b> MIL<span style="color:#c61d09;">CO</span></b>
               </span>
             </a>
   
@@ -74,155 +74,73 @@
    
     </div>
    
-  <section class="shop_section layout_padding">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        
-        <div class="col">
-          <div class="card">
-            <div class="card-body p-4" >
-  
-              <div class="row">
-  
-                <div class="col-lg-7" >
-                  <h5 class="mb-3"><a href="{% url 'products' %}" class="text-body"><i
-                        class="fa fa-long-arrow-left" href="{% url 'products' %}"></i>Continue shopping</a></h5>
-                  <hr>
-  
-                  <div class="d-flex justify-content-between align-items-center mb-4">
-                    <div>
-                      <p class="mb-1">Shopping cart</p>
-                      <p class="mb-0">You have {{order.get_cart_items}} items in your cart</p>
-                    </div>
-                    <div>
-                      <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!"
-                          class="text-body">price <i class="fa fa-arrow-down"></i></a></p>
-                    </div>
-                  </div>
-                  {% for item in items %}
-                  <div class="card mb-3"style="box-shadow: 5px 10px 8px #888888;">
-                    <div class="card-body">
-                      <div class="d-flex justify-content-between">
-                        <div class="d-flex flex-row align-items-center">
-                          <div>
-                            <img
-                              src="{{item.product.imageURL}}"
-                              class="img-fluid rounded" alt="Shopping item" style="width: 65px;">
-                          </div>
-                          <div class="ms-3" style="margin-left:20px;">
-                            <h5>{{item.product.name}}</h5>
-                            <p class="small mb-0">LSL{{item.product.price|floatformat:2}}</p>
-                          </div>
-                        </div>
-                        <div class="d-flex flex-row align-items-center">
-                          <div style="width: 50px;">
-                            <h5 class="fw-normal mb-0" >{{item.quantity}}
+    <div class="row">
+		<div class="col-lg-6">
+			<div class="box-element" id="form-wrapper">
+				<form id="form">
+					<div id="user-info">
+						<div class="form-field">
+							<input required class="form-control" type="text" name="name" placeholder="Name..">
+						</div>
+						<div class="form-field">
+							<input required class="form-control" type="email" name="email" placeholder="Email..">
+						</div>
+					</div>
+					
+					<div id="shipping-info">
+						<hr>
+						<p>Shipping Information:</p>
+						<hr>
+						<div class="form-field">
+							<input class="form-control" type="text" name="address" placeholder="Address..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="city" placeholder="City..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="state" placeholder="State..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="country" placeholder="Zip code..">
+						</div>
+					</div>
 
-                              <div class="quantity">
-                                <img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" src="{% static  'images/arrow-up.png' %}">
-                            
-                                <img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static  'images/arrow-down.png' %}">
-                              </div>
-                            </h5>
-                            
-                          </div>
-                          <div style="width: 80px;">
-                            <h6 class="mb-0"><span style="font-size:12px;">LSL</span>{{item.get_total|floatformat:2}}</h6>
-                          </div>
-                          <a><i data-product="{{item.product.id}}"  data-action="delete"  class="chg-quantity update-cart fa fa-trash"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {% endfor %}
-                </div>
-                <div class="col-lg-5">
-  
-                  <div class="card bg-danger text-white rounded-3">
-                    <div class="card-body">
-                      <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h5 class="mb-0">Card details</h5>
-                      
-                      </div>
-  
-                      <p class="small mb-2">Card type</p>
-                      <a href="#!" type="submit" class="text-white"><i
-                          class="fa fa-cc-mastercard"></i></a>
-                      <a href="#!" type="submit" class="text-white"><i
-                          class="fa fa-cc-visa"></i></a>
-                      <a href="#!" type="submit" class="text-white"><i
-                          class="fa fa-cc-amex"></i></a>
-                      <a href="#!" type="submit" class="text-white"><i class="fa fa-cc-paypal"></i></a>
-  
-                      <form class="mt-4">
-                        <div class="form-outline form-white mb-4">
-                          <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
-                            placeholder="Cardholder's Name" />
-                          <label class="form-label" for="typeName">Cardholder's Name</label>
-                        </div>
-  
-                        <div class="form-outline form-white mb-4">
-                          <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
-                            placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" />
-                          <label class="form-label" for="typeText">Card Number</label>
-                        </div>
-  
-                        <div class="row mb-4">
-                          <div class="col-md-6">
-                            <div class="form-outline form-white">
-                              <input type="text" id="typeExp" class="form-control form-control-lg"
-                                placeholder="MM/YYYY" size="7" id="exp" minlength="7" maxlength="7" />
-                              <label class="form-label" for="typeExp">Expiration</label>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-outline form-white">
-                              <input type="password" id="typeText" class="form-control form-control-lg"
-                                placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" />
-                              <label class="form-label" for="typeText">Cvv</label>
-                            </div>
-                          </div>
-                        </div>
-  
-                      </form>
-  
-                      <hr class="my-4">
-  
-                     <!-- <div class="d-flex justify-content-between">
-                        <p class="mb-2">Subtotal</p>
-                        <p class="mb-2">LSL 4798.00</p>
-                      </div>
-  
-                      <div class="d-flex justify-content-between">
-                        <p class="mb-2">Delivery</p>
-                        <p class="mb-2">LSL 20.00</p>
-                      </div>
-                      -->
-                      <div class="d-flex justify-content-between mb-4">
-                        <p class="mb-2">Total(Incl. taxes)</p>
-                        <p class="mb-2">LSL {{order.get_cart_total|floatformat:2}}</p>
-                      </div>
-  
-                      <button type="button" class="btn btn-warning btn-block btn-lg" href="{% url 'checkout' %}" >
-                        <div class="d-flex justify-content-between">
-                          <span>LSL {{order.get_cart_total|floatformat:2}}</span>
-                          <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
-                        </div>
-                      </button>
-  
-                    </div>
-                  </div>
-  
-                </div>
-  
-              </div>
-  
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+					<hr>
+					<input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+				</form>
+			</div>
+
+			<br>
+			<div class="box-element hidden" id="payment-info">
+				<small>Paypal Options</small>
+				<!--<button id="make-payment">Make payment</button>-->
+				<div id="paypal-button-container"></div>
+			</div>
+			
+		</div>
+
+		<div class="col-lg-6">
+			<div class="box-element">
+				<a  class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
+				<hr>
+				<h3>Order Summary</h3>
+				<hr>
+				{% for item in items %}
+				<div class="cart-row">
+					<div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>
+					<div style="flex:2"><p>{{item.product.name}}</p></div>
+					<div style="flex:1"><p>${{item.product.price|floatformat:2}}</p></div>
+					<div style="flex:1"><p>x{{item.quantity}}</p></div>
+				</div>
+				{% endfor %}
+				<h5>Items:   {{order.get_cart_items}}</h5>
+				<h5>Total:   ${{order.get_cart_total|floatformat:2}}</h5>
+			</div>
+		</div>
+	</div>
 
 <footer class="footer_section">
     <div class="container">
@@ -356,7 +274,125 @@ if (cart == undefined){
   document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
 }
 console.log('Cart:', cart)
+
+var total = '{{order.get_cart_total}}'
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+        	style: {
+                color:  'blue',
+                shape:  'rect',
+            },
+
+            // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value:parseFloat(total).toFixed(2)
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to the buyer
+                    submitFormData()
+                });
+            }
+
+        }).render('#paypal-button-container');
+    </script>
+
+	<script type="text/javascript">
+		var shipping = '{{order.shipping}}'
+
+		if (shipping == 'False'){
+		 	document.getElementById('shipping-info').innerHTML = ''
+		}
+
+		if (user != 'AnonymousUser'){
+		 	document.getElementById('user-info').innerHTML = ''
+		 }
+
+		if (shipping == 'False' && user != 'AnonymousUser'){
+			//Hide entire form if user is logged in and shipping is false
+				document.getElementById('form-wrapper').classList.add("hidden");
+				//Show payment if logged in user wants to buy an item that does not require shipping
+			    document.getElementById('payment-info').classList.remove("hidden");
+		}
+
+		var form = document.getElementById('form')
+		form.addEventListener('submit', function(e){
+	    	e.preventDefault()
+	    	console.log('Form Submitted...')
+	    	document.getElementById('form-button').classList.add("hidden");
+	    	document.getElementById('payment-info').classList.remove("hidden");
+	    })
+
+		/*
+	    document.getElementById('make-payment').addEventListener('click', function(e){
+	    	submitFormData()
+	    })
+	    */
+
+	    function submitFormData(){
+	    	console.log('Payment button clicked')
+
+	    	var userFormData = {
+				'name':null,
+				'email':null,
+				'total':total,
+			}
+
+			var shippingInfo = {
+				'address':null,
+				'city':null,
+				'state':null,
+				'zipcode':null,
+			}
+
+			if (shipping != 'False'){
+	    		shippingInfo.address = form.address.value
+		    	shippingInfo.city = form.city.value
+		    	shippingInfo.state = form.state.value
+		    	shippingInfo.zipcode = form.zipcode.value
+	    	}
+
+	    	if (user == 'AnonymousUser'){
+	    		userFormData.name = form.name.value
+	    		userFormData.email = form.email.value
+	    	}
+
+	    	console.log('Shipping Info:', shippingInfo)
+	    	console.log('User Info:', userFormData)
+
+	    	var url = "/process_order/"
+	    	fetch(url, {
+	    		method:'POST',
+	    		headers:{
+	    			'Content-Type':'applicaiton/json',
+	    			'X-CSRFToken':csrftoken,
+	    		}, 
+	    		body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}),
+	    		
+	    	})
+	    	.then((response) => response.json())
+	    	.then((data) => {
+				console.log('Success:', data);
+				alert('Transaction completed');  
+
+				cart = {}
+				document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+
+				window.location.href = "{% url 'products' %}"
+
+				})
+	    }
 </script>
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR-CLIENT-ID&currency=USD&disable-funding=credit"></script>
   <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="{% static 'js/bootstrap.js' %}"></script>
@@ -364,4 +400,4 @@ console.log('Cart:', cart)
   <script src="{% static 'js/custom.js' %}"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
   
-	</body>
+</body>
