@@ -85,129 +85,56 @@
               <div class="row">
   
                 <div class="col-lg-7" >
-                  <h5 class="mb-3"><a href="#!" class="text-body"><i
-                        class="fa fa-long-arrow-left"></i>Continue shopping</a></h5>
+                  <h5 class="mb-3"><a href="{% url 'products' %}" class="text-body"><i
+                        class="fa fa-long-arrow-left" href="{% url 'products' %}"></i>Continue shopping</a></h5>
                   <hr>
   
                   <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
                       <p class="mb-1">Shopping cart</p>
-                      <p class="mb-0">You have 4 items in your cart</p>
+                      <p class="mb-0">You have {{order.get_cart_items}} items in your cart</p>
                     </div>
                     <div>
                       <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!"
                           class="text-body">price <i class="fa fa-arrow-down"></i></a></p>
                     </div>
                   </div>
-  
+                  {% for item in items %}
                   <div class="card mb-3"style="box-shadow: 5px 10px 8px #888888;">
                     <div class="card-body">
                       <div class="d-flex justify-content-between">
                         <div class="d-flex flex-row align-items-center">
                           <div>
                             <img
-                              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
+                              src="{{item.product.imageURL}}"
                               class="img-fluid rounded" alt="Shopping item" style="width: 65px;">
                           </div>
                           <div class="ms-3" style="margin-left:20px;">
-                            <h5>Iphone 11 pro</h5>
-                            <p class="small mb-0">256GB, Navy Blue</p>
+                            <h5>{{item.product.name}}</h5>
+                            <p class="small mb-0">LSL{{item.product.price|floatformat:2}}</p>
                           </div>
                         </div>
                         <div class="d-flex flex-row align-items-center">
                           <div style="width: 50px;">
-                            <h5 class="fw-normal mb-0">2</h5>
+                            <h5 class="fw-normal mb-0" >{{item.quantity}}
+
+                              <div class="quantity">
+                                <img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" src="{% static  'images/arrow-up.png' %}">
+                            
+                                <img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static  'images/arrow-down.png' %}">
+                              </div>
+                            </h5>
+                            
                           </div>
                           <div style="width: 80px;">
-                            <h5 class="mb-0">LSL 900</h5>
+                            <h6 class="mb-0"><span style="font-size:12px;">LSL</span>{{item.get_total|floatformat:2}}</h6>
                           </div>
                           <a href="#!" style="color: #cecece;"><i class="fa fa-trash"></i></a>
                         </div>
                       </div>
                     </div>
                   </div>
-  
-                  <div class="card mb-3"style="box-shadow: 5px 10px 8px #888888;">
-                    <div class="card-body">
-                      <div class="d-flex justify-content-between">
-                        <div class="d-flex flex-row align-items-center">
-                          <div>
-                            <img
-                              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img2.webp"
-                              class="img-fluid rounded" alt="Shopping item" style="width: 65px;">
-                          </div>
-                          <div class="ms-3" style="margin-left:20px;">
-                            <h5>Samsung galaxy Note 10 </h5>
-                            <p class="small mb-0">256GB, Navy Blue</p>
-                          </div>
-                        </div>
-                        <div class="d-flex flex-row align-items-center">
-                          <div style="width: 50px;">
-                            <h5 class="fw-normal mb-0">2</h5>
-                          </div>
-                          <div style="width: 80px;">
-                            <h5 class="mb-0">LSL 900</h5>
-                          </div>
-                          <a href="#!" style="color: #cecece;"><i class="fa fa-trash"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-  
-                  <div class="card mb-3" style="box-shadow: 5px 10px 8px #888888;">
-                    <div class="card-body">
-                      <div class="d-flex justify-content-between">
-                        <div class="d-flex flex-row align-items-center">
-                          <div>
-                            <img
-                              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img3.webp"
-                              class="img-fluid rounded" alt="Shopping item" style="width: 65px;">
-                          </div>
-                          <div class="ms-3" style="margin-left:20px;">
-                            <h5>Canon EOS M50</h5>
-                            <p class="small mb-0">Onyx Black</p>
-                          </div>
-                        </div>
-                        <div class="d-flex flex-row align-items-center">
-                          <div style="width: 50px;">
-                            <h5 class="fw-normal mb-0">1</h5>
-                          </div>
-                          <div style="width: 80px;">
-                            <h5 class="mb-0">LSL 1199</h5>
-                          </div>
-                          <a href="#!" style="color: #cecece;"><i class="fa fa-trash"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-  
-                  <div class="card mb-3 mb-lg-0"style="">
-                    <div class="card-body">
-                      <div class="d-flex justify-content-between">
-                        <div class="d-flex flex-row align-items-center">
-                          <div>
-                            <img
-                              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img4.webp"
-                              class="img-fluid rounded" alt="Shopping item" style="width: 65px;">
-                          </div>
-                          <div class="ms-3" style="margin-left:20px;">
-                            <h5>MacBook Pro</h5>
-                            <p class="small mb-0">1TB, Graphite</p>
-                          </div>
-                        </div>
-                        <div class="d-flex flex-row align-items-center">
-                          <div style="width: 50px;">
-                            <h5 class="fw-normal mb-0">1</h5>
-                          </div>
-                          <div style="width: 80px;">
-                            <h5 class="mb-0"> LSL 1799</h5>
-                          </div>
-                          <a href="#!" style="color: #cecece;"><i class="fa fa-trash"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-  
+                  {% endfor %}
                 </div>
                 <div class="col-lg-5">
   
@@ -261,24 +188,24 @@
   
                       <hr class="my-4">
   
-                      <div class="d-flex justify-content-between">
+                     <!-- <div class="d-flex justify-content-between">
                         <p class="mb-2">Subtotal</p>
                         <p class="mb-2">LSL 4798.00</p>
                       </div>
   
                       <div class="d-flex justify-content-between">
-                        <p class="mb-2">Shipping</p>
+                        <p class="mb-2">Delivery</p>
                         <p class="mb-2">LSL 20.00</p>
                       </div>
-  
+                      -->
                       <div class="d-flex justify-content-between mb-4">
                         <p class="mb-2">Total(Incl. taxes)</p>
-                        <p class="mb-2">LSL 4818.00</p>
+                        <p class="mb-2">LSL {{order.get_cart_total|floatformat:2}}</p>
                       </div>
   
                       <button type="button" class="btn btn-warning btn-block btn-lg">
                         <div class="d-flex justify-content-between">
-                          <span>LSL 4818.00</span>
+                          <span>LSL {{order.get_cart_total|floatformat:2}}</span>
                           <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                         </div>
                       </button>
@@ -380,7 +307,55 @@
       </div>
     </div>
   </footer>
+  <script>
+    var user = '{{request.user}}'
 
+    
+function getToken(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getToken('csrftoken')
+
+function getCookie(name) {
+    // Split cookie string and get all individual name=value pairs in an array
+    var cookieArr = document.cookie.split(";");
+
+    // Loop through the array elements
+    for(var i = 0; i < cookieArr.length; i++) {
+        var cookiePair = cookieArr[i].split("=");
+
+        /* Removing whitespace at the beginning of the cookie name
+        and compare it with the given string */
+        if(name == cookiePair[0].trim()) {
+            // Decode the cookie value and return
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+
+    // Return null if not found
+    return null;
+}
+var cart = JSON.parse(getCookie('cart'))
+
+if (cart == undefined){
+  cart = {}
+  console.log('Cart Created!', cart)
+  document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+}
+console.log('Cart:', cart)
+</script>
   <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="{% static 'js/bootstrap.js' %}"></script>
