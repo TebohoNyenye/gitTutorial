@@ -933,5 +933,6 @@ a:focus {
   }
   }
   .card-body{
-    box-shadow: 5px 10px 18px red;
-  -we
+    box-shadow: 5px 10px 18px #888;
+    -webkit-box-shadow: 5px 10px 18px red;
+  }
