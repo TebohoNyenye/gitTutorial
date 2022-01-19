@@ -10,7 +10,8 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
- <link rel="shortcut icon" href="{% static 'images/about-img.png' %}" type="image/x-icon">
+  
+ <link rel="shortcut icon" href="../images/about-img.png" type="image/x-icon">
 
   <title>MILCO.</title>
 
@@ -45,7 +46,7 @@
     <header class="header_section">
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="{% url 'home' %}">
             <span>
               <img src="{% static 'images/logo.png' %}" alt="" style="width: 80px; height: 40px;">
             </span>
@@ -293,7 +294,7 @@
         </div>
       </div>
       <div class="btn-box">
-        <a href="">
+        <a href="{% url 'products' %}">
           View All
         </a>
       </div>

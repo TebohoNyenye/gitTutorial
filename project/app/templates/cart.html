@@ -9,7 +9,7 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <link rel="shortcut icon" href="{% static 'images/about-img.png' %}" type="image/x-icon">
+  <link rel="shortcut icon" href="../images/about-img.png" type="image/x-icon">
 
   <title>MILCO.</title>
 
@@ -202,14 +202,14 @@
                         <p class="mb-2">Total(Incl. taxes)</p>
                         <p class="mb-2">LSL {{order.get_cart_total|floatformat:2}}</p>
                       </div>
-  
-                      <button type="button" class="btn btn-warning btn-block btn-lg" href="{% url 'checkout' %}" >
-                        <div class="d-flex justify-content-between">
+                      <a href="{% url 'checkout' %}" >
+                      <button type="button" class="btn btn-warning btn-block btn-lg" >
+                        <div class="d-flex justify-content-between" >
                           <span>LSL {{order.get_cart_total|floatformat:2}}</span>
-                          <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                          <span>Checkout <i class="fa fa-long-arrow-right"></i></span>
                         </div>
                       </button>
-  
+                    </a>
                     </div>
                   </div>
   

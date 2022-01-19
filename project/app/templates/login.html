@@ -1,4 +1,5 @@
 {% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +10,7 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <link rel="shortcut icon" href="{% static 'images/about-img.png' %}" type="image/x-icon">
+  <link rel="shortcut icon" href="../images/about-img.png" type="image/x-icon">
 
   <title>MILCO.</title>
 
@@ -81,19 +82,33 @@
            
            
         </div>
-
+        
    
         <div class="col-md-7 col-lg-6 ml-auto">
+          {% if form.errors %}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <div id="form_errors">
+                {% for key, value in form.errors.items %}
+                    <strong>{{ value }}</strong>
+                {% endfor %}
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+          <form method="POST">
+            {% csrf_token %}
             <form action="#">
                 <div class="row">
 
                     <div class="input-group col-lg-12 mb-4">
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-envelope text-muted"></i>
+                                <i class="fa fa-user"></i>
                             </span>
                         </div>
-                        <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md">
+                        {{ form.username }}
                     </div>
 					
 					
@@ -104,14 +119,12 @@
                                 <i class="fa fa-lock text-muted"></i>
                             </span>
                         </div>
-                        <input id="password" type="text" name="password" placeholder="Enter Password" class="form-control bg-white border-left-0 border-md">
+                        {{ form.password }}
                     </div>
 
                     
                     <div class="form-group col-lg-12 mx-auto mb-0">
-                        <a href="#" class="btn btn-primary btn-block py-2">
-                            <span class="font-weight-bold">Login</span>
-                        </a>
+                      <button name="login" class="col-md-12 btn btn-danger" id="login">Login</button>
                     </div>
 
                    
@@ -123,6 +136,7 @@
 
                 </div>
             </form>
+          </form>
         </div>
     </div>
 </div>
@@ -133,3 +147,4 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
  
 </body>
+{% endblock content %}

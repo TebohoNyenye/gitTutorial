@@ -1,26 +1,28 @@
 from django.db import models
 
 from django.contrib.auth.models import User
-
+from PIL import Image
 # Create your models here.
-
 class Customer(models.Model):
-	user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-	name = models.CharField(max_length=200, null=True)
-	lastname = models.CharField(max_length=200, null=True)
-	email = models.CharField(max_length=200, null=True)
-	village = models.CharField(max_length=200, null=True)
-	benenficiary = models.CharField(max_length=200, null=True)
-	phone = models.CharField(max_length=200, null=True)
-	district = models.CharField(max_length=200, null=True)
-	passport = models.CharField(max_length=200, null=True)
-	image = models.ImageField(null=True, blank=True)
-	password = models.CharField(max_length=200, null=True)
-	confirmpassword = models.CharField(max_length=200, null=True)
+    user = models.OneToOneField(User,null=True, on_delete=models.CASCADE)
 
-	def __str__(self):
-		return self.name
+    avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
+    bio = models.TextField(null=True, blank=True)
+    Beneficiary_name= models.TextField(null=True, blank=True)
 
+    def __str__(self):
+        return self.user.username
+
+    # resizing images
+    def save(self, *args, **kwargs):
+        super().save()
+
+        img = Image.open(self.avatar.path)
+
+        if img.height > 100 or img.width > 100:
+            new_img = (100, 100)
+            img.thumbnail(new_img)
+            img.save(self.avatar.path)
 
 class Product(models.Model):
 	name = models.CharField(max_length=200)
@@ -40,7 +42,7 @@ class Product(models.Model):
 		return url
 
 class Order(models.Model):
-	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
+	customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 	date_ordered = models.DateTimeField(auto_now_add=True)
 	complete = models.BooleanField(default=False)
 	transaction_id = models.CharField(max_length=100, null=True)

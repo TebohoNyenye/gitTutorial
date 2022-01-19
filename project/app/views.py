@@ -1,12 +1,16 @@
 from multiprocessing import context
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from urllib import request
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.http import JsonResponse
 import json
 import datetime
 from .models import * 
 from .utils import cookieCart, cartData, guestOrder
+from django.contrib.auth.views import LoginView, PasswordResetView, PasswordChangeView
+from .forms import RegisterForm, UpdateUserForm, UpdateProfileForm,LoginForm
 
 
 
@@ -22,11 +26,24 @@ class AboutView(TemplateView):
 class ContactView(TemplateView):
     template_name = "contact.html"
 
-class LoginView(TemplateView):
-    template_name = "login.html"
+class LoginView(LoginView):
+    form_class = LoginForm
+    template_name = 'login.html'
+    def form_valid(self, form):
+        remember_me = form.cleaned_data.get('remember_me')
 
-class RegisterView(TemplateView):
-    template_name = "register.html"
+        if not remember_me:
+            # set session expiry to 0 seconds. So it will automatically close the session after the browser is closed.
+            self.request.session.set_expiry(0)
+
+            # Set session as modified to force data updates/cookie to be saved.
+            self.request.session.modified = True
+
+        # else browser session will be as long as the session cookie time "SESSION_COOKIE_AGE" defined in settings.py
+        return super(LoginView, self).form_valid(form)
+
+
+
 
 def ProductView(request):
     data = cartData(request)
@@ -115,5 +132,49 @@ def processOrder(request):
 		)
 
 	return JsonResponse('Payment submitted..', safe=False)
+class RegisterView(TemplateView):
+    form_class = RegisterForm
+    initial = {'key': 'value'}
+    template_name = 'register.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        # will redirect to the home page if a user tries to access the register page while logged in
+       
+        # else process dispatch as it otherwise normally would
+        return super(RegisterView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            form.save()
+
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account created for {username}')
+
+            return redirect(to='login')
+
+        return render(request, self.template_name, {'form': form})
+
+def ProfileView(request):
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.customer)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='profile')
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        profile_form = UpdateProfileForm(instance=request.user.customer)
+
+    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
+	
 
 
