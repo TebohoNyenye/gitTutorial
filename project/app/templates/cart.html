@@ -157,13 +157,13 @@
                       <form class="mt-4">
                         <div class="form-outline form-white mb-4">
                           <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
-                            placeholder="Cardholder's Name" />
+                            placeholder="Cardholder's Name" value="{{request.user.customer.holder}}" />
                           <label class="form-label" for="typeName">Cardholder's Name</label>
                         </div>
   
                         <div class="form-outline form-white mb-4">
                           <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
-                            placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" />
+                            placeholder="" minlength="19" maxlength="19"value="{{request.user.customer.AccNo}}"/>
                           <label class="form-label" for="typeText">Card Number</label>
                         </div>
   

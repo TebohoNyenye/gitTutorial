@@ -9,6 +9,8 @@ class Customer(models.Model):
     avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
     bio = models.TextField(null=True, blank=True)
     Beneficiary_name= models.TextField(null=True, blank=True)
+    holder= models.TextField(null=True, blank=True)
+    AccNo= models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.user.username

@@ -123,7 +123,7 @@ def processOrder(request):
 
 	if order.shipping == True:
 		ShippingAddress.objects.create(
-		customer=customer,
+		customer=customer.user,
 		order=order,
 		address=data['shipping']['address'],
 		city=data['shipping']['city'],
@@ -155,8 +155,7 @@ class RegisterView(TemplateView):
 
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}')
-
-            return redirect(to='login')
+            
 
         return render(request, self.template_name, {'form': form})
 
