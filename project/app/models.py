@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from PIL import Image
 # Create your models here.
 class Customer(models.Model):
-    user = models.OneToOneField(User,null=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User,null=True,related_name ='customer', on_delete=models.CASCADE)
 
     avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
     bio = models.TextField(null=True, blank=True)
@@ -19,8 +19,8 @@ class Customer(models.Model):
 
         img = Image.open(self.avatar.path)
 
-        if img.height > 100 or img.width > 100:
-            new_img = (100, 100)
+        if img.height > 150 or img.width > 150:
+            new_img = (150, 150)
             img.thumbnail(new_img)
             img.save(self.avatar.path)
 
