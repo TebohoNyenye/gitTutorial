@@ -120,7 +120,8 @@
                     <div class="col-md-12"><label class="labels">Beneficiary</label>{{ profile_form.Beneficiary_name }}</div>
                     <div class="col-md-12"><label class="labels">Bio:</label>{{ profile_form.bio }}</div>
                 </div>
-              
+                <p></p>
+                <a style="color:#bb2124;" href="{% url 'change_password' %}">Change Password <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
                 <div class="mt-5 text-center"><button type="submit" class="btn btn-danger btn-lg">Save Changes</button>
                 <button type="reset" class="btn btn-danger btn-lg">Reset</button></div>
             </div>

@@ -1,4 +1,5 @@
 from multiprocessing import context
+from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from urllib import request
@@ -174,6 +175,11 @@ def ProfileView(request):
         profile_form = UpdateProfileForm(instance=request.user.customer)
 
     return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
+class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'changepassword.html'
+    success_message = "Successfully Changed Your Password"
+    success_url = reverse_lazy('profile')   
 	
 
 

@@ -329,7 +329,8 @@ var total = '{{order.get_cart_total}}'
 	    	e.preventDefault()
 	    	console.log('Form Submitted...')
 	    	document.getElementById('form-button').classList.add("hidden");
-	    	document.getElementById('payment-info').classList.remove("hidden");
+        $('#form-button').hide();
+	    	//document.getElementById('payment-info').classList.remove("hidden");
 	    })
 
 		/*
