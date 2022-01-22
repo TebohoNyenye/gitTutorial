@@ -58,20 +58,20 @@ def cartData(request):
 
 	
 def guestOrder(request, data):
-	name = data['form']['name']
+	user = data['form']['name']
 	email = data['form']['email']
 
 	cookieData = cookieCart(request)
 	items = cookieData['items']
 
-	customer, created = Customer.objects.get_or_create(
+	guest, created = Guest.objects.get_or_create(
 			email=email,
 			)
-	customer.name = name
-	customer.save()
+	guest.user = user
+	guest.save()
 
 	order = Order.objects.create(
-		customer=customer,
+		guest=guest,
 		complete=False,
 		)
 
@@ -82,5 +82,5 @@ def guestOrder(request, data):
 			order=order,
 			quantity=(item['quantity'] if item['quantity']>0 else -1*item['quantity']), # negative quantity = freebies
 		)
-	return customer, order
+	return guest, order
 

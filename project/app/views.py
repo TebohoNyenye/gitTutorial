@@ -111,9 +111,11 @@ def processOrder(request):
 
 	if request.user.is_authenticated:
 		customer = request.user.customer
-		order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        
+		order, created = Order.objects.get_or_create(customer=customer.user, complete=False)
 	else:
-		customer, order = guestOrder(request, data)
+        
+		Guest.user, order = guestOrder(request, data)
 
 	total = float(data['form']['total'])
 	order.transaction_id = transaction_id
@@ -122,15 +124,27 @@ def processOrder(request):
 		order.complete = True
 	order.save()
 
-	if order.shipping == True:
+	if order.shipping == True and request.user.is_authenticated:
+        
 		ShippingAddress.objects.create(
-		customer=customer.user,
+		customer=request.user.customer,
 		order=order,
 		address=data['shipping']['address'],
 		city=data['shipping']['city'],
 		state=data['shipping']['state'],
 		zipcode=data['shipping']['zipcode'],
 		)
+         
+        
+	elif order.shipping == True and request.user.is_anonymous:	ShippingAddress.objects.create(
+		
+        guest=Guest.user, 
+		order=order,
+		address=data['shipping']['address'],
+		city=data['shipping']['city'],
+		state=data['shipping']['state'],
+		zipcode=data['shipping']['zipcode'],
+	)
 
 	return JsonResponse('Payment submitted..', safe=False)
 class RegisterView(TemplateView):

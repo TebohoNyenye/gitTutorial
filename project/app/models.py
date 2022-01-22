@@ -11,7 +11,7 @@ class Customer(models.Model):
     Beneficiary_name= models.TextField(null=True, blank=True)
     holder= models.TextField(null=True, blank=True)
     AccNo= models.TextField(null=True, blank=True)
-
+   
     def __str__(self):
         return self.user.username
 
@@ -25,6 +25,14 @@ class Customer(models.Model):
             new_img = (150, 150)
             img.thumbnail(new_img)
             img.save(self.avatar.path)
+class Guest(models.Model):
+    name = models.OneToOneField(User,null=True,related_name ='guest', on_delete=models.CASCADE)
+    email = models.CharField(max_length=200)
+
+    
+   
+    def __str__(self):
+        return self.email
 
 class Product(models.Model):
 	name = models.CharField(max_length=200)
@@ -45,6 +53,7 @@ class Product(models.Model):
 
 class Order(models.Model):
 	customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+	guest = models.ForeignKey(Guest, on_delete=models.SET_NULL, null=True, blank=True)
 	date_ordered = models.DateTimeField(auto_now_add=True)
 	complete = models.BooleanField(default=False)
 	transaction_id = models.CharField(max_length=100, null=True)
@@ -86,6 +95,7 @@ class OrderItem(models.Model):
 
 class ShippingAddress(models.Model):
 	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
+	guest = models.ForeignKey(Guest, on_delete=models.SET_NULL, null=True)
 	order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
 	address = models.CharField(max_length=200, null=False)
 	city = models.CharField(max_length=200, null=False)
