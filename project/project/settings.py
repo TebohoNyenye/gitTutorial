@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+django_heroku.settings(locals())
 ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [
